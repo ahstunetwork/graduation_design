@@ -1,0 +1,19 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>qtquickcontrols2.conf</file>
+        <file>database.js</file>
+        <file>Page_1_word.qml</file>
+        <file>Page_2_word_list.qml</file>
+        <file>Page_3_statistics.qml</file>
+        <file>Page_4_account.qml</file>
+        <file>exchange_info.js</file>
+        <file>Comp_drawer.qml</file>
+        <file>Comp_Icon_buttom.qml</file>
+    </qresource>
+    <qresource prefix="/image">
+        <file>setting.png</file>
+        <file>setting.ico</file>
+        <file>mark_transparent.png</file>
+    </qresource>
+</RCC>
