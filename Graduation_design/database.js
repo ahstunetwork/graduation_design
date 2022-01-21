@@ -4,7 +4,10 @@
 
 // real code block
 var index = 10;
-var current_DB_index = 10;
+var current_DB_index;
+
+//default operate database is word_list_order
+var operate_db_name = "word_list_order";
 
 function getindex()
 {
@@ -16,15 +19,58 @@ function setindex( idx )
     index = idx;
 }
 
-function get_current_DB_index()
+
+
+
+// set & get current_db_index
+function get_current_DB_index( )
 {
-    return current_DB_index
+    var db = getdatabase();
+    var result_set;
+
+    var str = "SELECT db_table_current_index FROM para_info WHERE db_table_name = '" +operate_db_name+"';"
+    console.log( str );
+    db.transaction( function(tx) {
+        var result = tx.executeSql( str );
+        result_set = result;
+        console.log( result.rows.length )
+        if (result.rows.length != 0 ) {
+            console.log( " exec success ");
+        }
+        else {
+            result_set = "Unknown";
+            console.log( " exec faliure");
+        }
+    })
+    console.log( result_set.rows[0].db_table_current_index );
+    return result_set.rows[0].db_table_current_index;
 }
 
-function set_current_DB_index( value )
+// set & get current_db_index
+function set_current_DB_index( idx )
 {
-    current_DB_index = value
+    var db = getdatabase();
+    var result_set;
+
+    var str = "UPDATE para_info SET db_table_current_index="+idx+
+            " WHERE db_table_name='"+operate_db_name+"'"+
+            ";"
+    console.log( str );
+    db.transaction( function(tx) {
+        var result = tx.executeSql( str );
+        result_set = result;
+        console.log( result.rows.length )
+        if (result.rows.length != 0 ) {
+            console.log( " exec success ");
+        }
+        else {
+            result_set = "Unknown";
+            console.log( " exec faliure");
+        }
+    })
+
 }
+
 
 
 
@@ -78,9 +124,9 @@ function insertData(name, value) {
 }
 
 
-function readData_by_index(idx) {
+function readData_by_index( idx ) {
     //debug
-    console.log("readDate_by_index, The index is : " + idx);
+//    console.log("readDate_by_index, The index is : " + idx);
 
 
     var db = getdatabase();
@@ -93,8 +139,11 @@ function readData_by_index(idx) {
 
     var result_set;
 
+    var sql_str = "select * from "+operate_db_name+" where word_index="+idx+";"
+
+    console.log( sql_str );
     db.transaction( function(tx) {
-        var result = tx.executeSql("select * from word_list_order where word_index=?;", [idx]);
+        var result = tx.executeSql(sql_str);
         if (result.rows.length > 0) {
 
 
@@ -108,13 +157,142 @@ function readData_by_index(idx) {
 
             console.log(result_set[2])
 
-
-
-
-
         } else {
             result_set = "Unknown";
         }
     })
     return result_set;
+}
+
+
+// page_2 load database table as word_list
+function load_db_table_as_word_list( )
+{
+    var db = getdatabase();
+    var result_set = [];
+
+//    var str = ".tables;"
+    var str = "SELECT name FROM sqlite_master WHERE type='table' ORDER BY name;";
+
+    db.transaction( function(tx) {
+        var result = tx.executeSql( str );
+        console.log( result.rows.length )
+        if (result.rows.length > 0 ) {
+            console.log( "js: exec success ");
+            for( var i = 0; i < result.rows.length; i++ )
+            {
+                var result_temp = result.rows[i].name
+                console.log( result_temp );
+//                result_set = []
+                result_set[i] = result_temp
+            }
+            for( var ii = 0; ii < result_set.length; ii++ )
+            {
+                console.log( "js: " + result_set[ii] )
+            }
+
+//            return ";
+        }
+        else {
+            result_set = "Unknown";
+            console.log( "js: exec faliure");
+            return result_set;
+        }
+    })
+
+    return result_set;
+
+}
+
+
+
+// page_2   create & delete database table
+//////////////////////////////////////////////////////////////////////////
+// create a db table at the same time the model add one new item
+function create_db_table( add_table_name )
+{
+    var db = getdatabase();
+    var result_set;
+
+    var str = "CREATE TABLE " + add_table_name +
+            "( " +
+            "word_index INT," +
+            "word VARCHAR," +
+            "soundmark VARCHAR," +
+            "meaning VARCHAR," +
+            "study_count INT," +
+            "is_marked bool);";
+    console.log( str );
+    db.transaction( function(tx) {
+        var result = tx.executeSql( str );
+//        console.log( result.rows.length )
+        if (result.rows.length === 0 ) {
+            console.log( " exec success ");
+        }
+        else {
+            result_set = "Unknown";
+            console.log( " exec faliure ");
+        }
+    })
+
+    // write para_info to para_info_table
+    var para_info_str = "INSERT INTO para_info values('" +
+           add_table_name +
+            "', 0, 0, 0);"
+    console.log( "js: " +  para_info_str );
+    db.transaction( function(tx) {
+        var result = tx.executeSql( para_info_str );
+        console.log( result.rows.length )
+        if (result.rows.length === 0 ) {
+            console.log( " exec success ");
+        }
+        else {
+            result_set = "Unknown";
+            console.log( " exec faliure ");
+        }
+    })
+
+    return true;
+}
+
+
+// delete a db table at the same time the model delete one table
+function delete_db_table( del_table_name )
+{
+    var db = getdatabase();
+    var result_set;
+
+    var str = "DROP TABLE " + del_table_name + ";";
+    console.log( str );
+    db.transaction( function(tx) {
+        var result = tx.executeSql( str );
+        console.log( result.rows.length )
+        if (result.rows.length === 0 ) {
+            console.log( " exec success ");
+        }
+        else {
+            result_set = "Unknown";
+            console.log( "exec faliure");
+        }
+    })
+
+
+    // modify para_info to para_info_table
+    var para_info_str = "DELETE FROM para_info where db_table_name = '" +
+           del_table_name +
+            "';"
+    console.log( "js: " +  para_info_str );
+    db.transaction( function(tx) {
+        var result = tx.executeSql( para_info_str );
+        console.log( result.rows.length )
+        if (result.rows.length === 0 ) {
+            console.log( " exec success ");
+        }
+        else {
+            result_set = "Unknown";
+            console.log( " exec faliure ");
+        }
+    })
+
+    return false;
 }

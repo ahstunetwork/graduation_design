@@ -2,11 +2,15 @@
 #define WORD_H
 
 #include <QString>
+#include <QDebug>
 
 class Word
 {
 public:
-    Word() = default;
+    Word()
+    {
+        qDebug() << "Word class construct" << endl;
+    }
 
     Word(int index, QString word, QString soundmark, QString meaning, int study_count, bool is_marked)
     {
