@@ -1,4 +1,4 @@
-QT += quick sql axcontainer
+QT += quick sql widgets charts
 
 CONFIG += c++11
 

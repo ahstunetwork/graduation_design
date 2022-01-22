@@ -10,7 +10,7 @@ import "database.js" as DB
 Rectangle {
     id: rec
 
-    property alias img_src: icon.source
+    property var image_path: "null"
     property var btn_function: "null"
 //    property alias btn_txt: button.text
 
@@ -34,7 +34,15 @@ Rectangle {
         id: icon
         anchors.fill: parent
         anchors.margins: 10
-        source: "qrc:/image/mark_transparent.png"
+        source:
+            if( image_path == "null" )
+            {
+                return "qrc:/image/edit.svg"
+            }else
+            {
+                return image_path
+            }
+
         fillMode: Image.PreserveAspectFit
 //        fillMode: Image.Tile
         clip: true
@@ -83,6 +91,50 @@ Rectangle {
                 console.log("hello qml")
                 swipe_view.currentIndex = 3
             }
+            else if( btn_function == "word_prior" )
+            {
+                var current_index_1 = DB.get_current_DB_index();
+                DB.set_current_DB_index( current_index_1 - 1);
+                current_index_1 = DB.get_current_DB_index();
+                if( DB.get_current_DB_index() >= 1 )
+                {
+
+                    page_word_main_show_word.text = DB.readData_by_index( current_index_1 )[1]
+
+                    page_word_main_show_word_info.text =
+                        "\nINDEX: " + DB.readData_by_index( current_index_1 )[0] +
+                        "\nWORD: " + DB.readData_by_index( current_index_1)[1] +
+                        "\nSOUNDMARK: " +DB.readData_by_index(current_index_1)[2]+
+                        "\nMEANING: "+DB.readData_by_index(current_index_1)[3]
+
+                }
+                tabBar.visible = true;
+                console.log( current_index_1)
+            }
+
+            else if( btn_function == "word_next")
+            {
+//                console.log( "word_next  " + DB.get_current_DB_index() )
+                var current_index = DB.get_current_DB_index();
+                DB.set_current_DB_index( current_index + 1)
+                current_index = DB.get_current_DB_index();
+                if( current_index >= 1 )
+                {
+
+                    page_word_main_show_word.text = DB.readData_by_index( DB.get_current_DB_index())[1]
+
+                    page_word_main_show_word_info.text =
+                        "\nINDEX    : " + DB.readData_by_index( current_index )[0] +
+                        "\nWORD     : " + DB.readData_by_index( current_index)[1] +
+                        "\nSOUNDMARK: " +DB.readData_by_index(current_index)[2]+
+                        "\nMEANING  : "+DB.readData_by_index( current_index)[3]
+                }
+
+                tabBar.visible = false;
+                console.log( current_index)
+
+            }
+
             else
             {
                 console.log("no action")
@@ -100,7 +152,7 @@ Rectangle {
             color = clr_enter
             color = "transparent"
             parent.release()
-            console.log("Release")
+//            console.log("Release")
         }
 
         //指针进入
