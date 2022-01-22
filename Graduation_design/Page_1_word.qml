@@ -9,8 +9,6 @@ import "database.js" as DB
 
 Page {
 
-
-
     Component.onCompleted: {
 
         console.log( DB.getindex() )
@@ -26,11 +24,19 @@ Page {
     }
 
 
+    Image {
+        id: page_word_background
+        source: "qrc:/image/pic_5_phone.jpg"
+        anchors.fill: parent
+    }
+
+
     Rectangle {
         id: page_word_rec_main
         width: parent.width
         height: parent.height * 9 / 10
-//                color: "green"
+        color: "transparent"
+
 
 
 
@@ -38,9 +44,15 @@ Page {
         Rectangle {
 
             id: page_word_main_show_word_rec
-            color: "green"
+            color: "transparent"
             width: parent.width
             height: parent.height * 3 / 15
+
+//            Image {
+//                id: page_word_main_show_word_background
+//                source: "qrc:/image/pic_1.jpg"
+//                anchors.fill: parent
+//            }
 
             Text {
                 id: page_word_main_show_word
@@ -65,7 +77,13 @@ Page {
 
         Rectangle {
             id: page_word_main_show_word_info_rec
-            color: "#66ccff"
+            color: "transparent"
+//            Image {
+//                id: page_word_main_show_word_info_background
+//                source: "qrc:/image/tager_background.jpg"
+//                anchors.fill: parent
+
+//            }
 
             width: parent.width
             height: parent.height * 12 / 15
@@ -78,7 +96,7 @@ Page {
                 anchors.fill: parent
 
                 wrapMode: Text.WordWrap
-                text: "情生两端绿野水向南，林深处岁月不流转"
+                text: "null"
                 font.family: "Source Code Pro"
                 font.pixelSize: Qt.application.font.pixelSize * 2
                 opacity: 0
@@ -108,7 +126,7 @@ Page {
         width: parent.width
         height: parent.height / 10
 
-        color: "yellow"
+        color: "transparent"
 
         Rectangle {
             width: parent.width/4
@@ -116,29 +134,14 @@ Page {
 
             anchors.left: parent.left
             id: page_word_btn_prior_rec
+            color: "transparent"
 
-            Button {
+            Comp_Icon_buttom {
                 anchors.fill: parent
                 id: page_word_btn_prior
-                text: "上一个"
-
-                onClicked: {
-
-                    DB.set_current_DB_index(DB.get_current_DB_index() - 1)
-                    if( DB.get_current_DB_index() >= 1 )
-                    {
-
-                        page_word_main_show_word.text = DB.readData_by_index( DB.get_current_DB_index())[1]
-
-                        page_word_main_show_word_info.text =
-                            "\nINDEX: " + DB.readData_by_index( DB.get_current_DB_index() )[0] +
-                            "\nWORD: " + DB.readData_by_index( DB.get_current_DB_index() )[1] +
-                            "\nSOUNDMARK: " +DB.readData_by_index(DB.get_current_DB_index())[2]+
-                            "\nMEANING: "+DB.readData_by_index( DB.get_current_DB_index())[3]
-
-                    }
-
-                }
+//                text: "上一个"
+                btn_function: "word_prior"
+                image_path: "qrc:/image/left_tr.png"
 
             }
 
@@ -148,14 +151,17 @@ Page {
             width: parent.width/4
             height: parent.height
             id: page_word_btn_mark_rec
+            color: "transparent"
 
             anchors.left: page_word_btn_prior_rec.right
 
-            Button {
+            Comp_Icon_buttom {
 
                 id: page_word_btn_mark
                 anchors.fill: parent
-                text: "标记"
+//                text: "标记"
+                image_path: "qrc:/image/mark_tr.png"
+
             }
 
         }
@@ -165,12 +171,14 @@ Page {
             width: parent.width/4
             height: parent.height
             id: page_word_btn_kill_rec
+            color: "transparent"
 
             anchors.left: page_word_btn_mark_rec.right
-            Button {
+            Comp_Icon_buttom {
                 id: page_word_btn_kill
                 anchors.fill: parent
-                text: "秒杀"
+                image_path: "qrc:/image/success_tr.png"
+//                text: "秒杀"
             }
         }
 
@@ -180,33 +188,22 @@ Page {
             height: parent.height
             id: page_word_btn_next_rec
             anchors.left: page_word_btn_kill_rec.right
+            color: "transparent"
 
-            Button {
+            Comp_Icon_buttom {
 
                 id: page_word_btn_next
                 anchors.fill: parent
-                text: "下一个"
+//                text: "下一个"
 
-                onClicked: {
+                btn_function: "word_next"
+                image_path: "qrc:/image/right_tr.png"
 
-                    DB.set_current_DB_index(DB.get_current_DB_index() + 1)
-                    if( DB.get_current_DB_index() >= 1 )
-                    {
 
-                        page_word_main_show_word.text = DB.readData_by_index( DB.get_current_DB_index())[1]
-
-                        page_word_main_show_word_info.text =
-                            "\nINDEX    : " + DB.readData_by_index( DB.get_current_DB_index() )[0] +
-                            "\nWORD     : " + DB.readData_by_index( DB.get_current_DB_index() )[1] +
-                            "\nSOUNDMARK: " +DB.readData_by_index(DB.get_current_DB_index())[2]+
-                            "\nMEANING  : "+DB.readData_by_index( DB.get_current_DB_index())[3]
-
-                    }
-
-                }
             }
         }
-
     }
-
 }
+
+
+

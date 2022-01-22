@@ -9,6 +9,7 @@ import QtQuick.Layouts 1.12
 import "database.js" as DB
 
 ApplicationWindow {
+    id: main_window
     visible: true
     width: 350
     height: 710
@@ -17,11 +18,6 @@ ApplicationWindow {
     Tool_InterAction {
         id: tool_interaction
     }
-
-
-
-
-
 
     SwipeView {
         id: swipe_view
@@ -146,6 +142,8 @@ ApplicationWindow {
             Comp_Icon_buttom {
                 anchors.fill: parent
                 btn_function: "word"
+                image_path: "qrc:/image/word_tr.png"
+
             }
 
         }
@@ -157,6 +155,7 @@ ApplicationWindow {
                 anchors.fill: parent
 
                 btn_function: "word_list"
+                image_path: "qrc:/image/word_list_tr.png"
             }
 
         }
@@ -168,6 +167,7 @@ ApplicationWindow {
                 anchors.fill: parent
 
                 btn_function: "statistics"
+                image_path: "qrc:/image/statistics_tr.png"
             }
 
         }
@@ -178,6 +178,7 @@ ApplicationWindow {
                 anchors.fill: parent
 
                 btn_function: "account"
+                image_path: "qrc:/image/account_tr.png"
             }
 
         }
