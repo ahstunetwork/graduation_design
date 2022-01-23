@@ -4,6 +4,7 @@ import QtQuick.Dialogs 1.2
 import Tool_InterAction 1.0
 import QtQuick.LocalStorage 2.12
 import QtQuick.Controls.Material 2.12
+import QtMultimedia 5.12
 import "database.js" as DB
 
 
@@ -13,6 +14,7 @@ Page {
     Dialog {
         id: switch_operate_db_dialog
         title: "Switch"
+                height: main_window.height/4
         property var page_4_book_name: "null"
 
         ComboBox {
@@ -106,7 +108,7 @@ Page {
         }
         Button {
             id: setting_btn
-            text: "setting"
+            text: "backdoor"
             width: parent.width
             height: parent.height / 7
             anchors.top: switch_word_list_btn.bottom
@@ -151,5 +153,10 @@ Page {
             }
 
         }
+
+
+
+
+
     }
 }
