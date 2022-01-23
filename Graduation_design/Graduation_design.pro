@@ -1,4 +1,4 @@
-QT += quick sql widgets charts
+QT += quick sql widgets charts multimedia multimediawidgets
 
 CONFIG += c++11
 

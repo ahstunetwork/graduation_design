@@ -30,15 +30,17 @@ Page {
 
     }
 
-    New_window_test {
+//    New_window_test {
 
-        id: new_window_test
-        visible: false
-    }
+//        id: new_window_test
+//        visible: false
+//    }
 
     Dialog {
         id: add_new_dialog
         title: "Add New"
+        height: main_window.height/3
+
 
         TextField {
             id: text_field_name
@@ -84,6 +86,7 @@ Page {
     Dialog {
         id: delete_dialog
         title: "Delete"
+        height: main_window.height/3
         Text {
             id: tip_text
             anchors.margins: 20
@@ -118,7 +121,7 @@ Page {
     Dialog {
         id: import_dialog
         title: "Import"
-
+        height: main_window.height/3
         property var book_name: "null"
         property var file_path: "null"
 //        Component.onCompleted: {

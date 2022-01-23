@@ -55,6 +55,7 @@ Rectangle {
 
 //        anchors.top: icon.bottom
 //        anchors.topMargin: 5
+
 //        anchors.horizontalCenter: icon.horizontalCenter
 //        anchors.bottom: icon.bottom
 //        anchors.bottomMargin: 5
@@ -102,13 +103,13 @@ Rectangle {
                     page_word_main_show_word.text = DB.readData_by_index( current_index_1 )[1]
 
                     page_word_main_show_word_info.text =
-                        "\nINDEX: " + DB.readData_by_index( current_index_1 )[0] +
-                        "\nWORD: " + DB.readData_by_index( current_index_1)[1] +
-                        "\nSOUNDMARK: " +DB.readData_by_index(current_index_1)[2]+
-                        "\nMEANING: "+DB.readData_by_index(current_index_1)[3]
+                        "\序号: " + DB.readData_by_index( current_index_1 )[0] +
+                        "\n单词: " + DB.readData_by_index( current_index_1)[1] +
+                        "\n音标: " +DB.readData_by_index(current_index_1)[2]+
+                        "\n意思: "+DB.readData_by_index(current_index_1)[3]
 
                 }
-                tabBar.visible = true;
+//                tabBar.visible = true;
                 console.log( current_index_1)
             }
 
@@ -124,15 +125,21 @@ Rectangle {
                     page_word_main_show_word.text = DB.readData_by_index( DB.get_current_DB_index())[1]
 
                     page_word_main_show_word_info.text =
-                        "\nINDEX    : " + DB.readData_by_index( current_index )[0] +
-                        "\nWORD     : " + DB.readData_by_index( current_index)[1] +
-                        "\nSOUNDMARK: " +DB.readData_by_index(current_index)[2]+
-                        "\nMEANING  : "+DB.readData_by_index( current_index)[3]
+                        "\序号: " + DB.readData_by_index( current_index )[0] +
+                        "\n单词: " + DB.readData_by_index( current_index)[1] +
+                        "\n音标: " +DB.readData_by_index(current_index)[2]+
+                        "\n意思: "+DB.readData_by_index( current_index)[3]
                 }
 
-                tabBar.visible = false;
+//                tabBar.visible = false;
                 console.log( current_index)
 
+            }
+            else if( btn_function == "switch_study_mode" )
+            {
+
+
+                switch_study_mode_dialog.open()
             }
 
             else
