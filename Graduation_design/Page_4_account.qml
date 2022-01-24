@@ -39,7 +39,7 @@ Page {
                 for( var i = 0; i < db_table_name_list.length; i++ )
                 {
                     console.log( " component.oncompleted " + db_table_name_list[i] )
-                    if( db_table_name_list[i] === "para_info" || db_table_name_list[i] ==="extra_info" )
+                    if( db_table_name_list[i] === "para_info" || db_table_name_list[i] ==="extra_info" ||db_table_name_list[i]==="statistics_info")
                     {
                     }
                     else
@@ -152,6 +152,17 @@ Page {
                 Qt.quit();
             }
 
+        }
+
+        Button {
+            id: proc_test_btn
+            text: "test"
+            width: parent.width
+            height: parent.height/7
+            anchors.top:  exit_proc_btn.bottom
+            onClicked: {
+                DB.update_statistics_info()
+            }
         }
 
 

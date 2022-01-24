@@ -21,7 +21,7 @@ function setindex( idx )
 
 
 // check database record if exist
-function is_db_table_record_exist(  )
+function is_db_table_record_exist( )
 {
     var db = getdatabase();
     var result_set;
