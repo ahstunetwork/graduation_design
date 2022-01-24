@@ -182,7 +182,7 @@ Page {
 
         Button {
             id: hide_footer_btn
-            width: parent.width*2
+            width: parent.width*2/5
             height: 50
 
             anchors.top: word_switch_speed_slider.bottom

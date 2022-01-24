@@ -305,7 +305,7 @@ Page {
                         for( var i = 0; i < db_table_name_list.length; i++ )
                         {
                             console.log( " component.oncompleted " + db_table_name_list[i] )
-                            if( db_table_name_list[i] === "para_info" || db_table_name_list[i]==="extra_info" )
+                            if( db_table_name_list[i] === "para_info" || db_table_name_list[i]==="extra_info" ||db_table_name_list[i]==="statistics_info")
                             {
                             }
                             else
