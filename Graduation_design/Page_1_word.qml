@@ -342,7 +342,7 @@ Page {
                 height: parent.height*2/3
                 anchors.top: parent.top
                 anchors.right: parent.right
-                image_path: "qrc:/image/setting.svg"
+                image_path: "qrc:/image/setting_tr.png"
                 btn_function: "switch_study_mode"
 
 
