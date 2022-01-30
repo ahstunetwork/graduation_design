@@ -7,7 +7,7 @@
         <file>Page_2_word_list.qml</file>
         <file>Page_3_statistics.qml</file>
         <file>Page_4_account.qml</file>
-        <file>exchange_info.js</file>
+        <file>tools_func.js</file>
         <file>Comp_drawer.qml</file>
         <file>Comp_Icon_buttom.qml</file>
         <file>New_window_test.qml</file>

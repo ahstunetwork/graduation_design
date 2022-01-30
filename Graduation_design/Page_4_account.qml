@@ -10,65 +10,6 @@ import "database.js" as DB
 
 Page {
 
-
-    Dialog {
-        id: switch_operate_db_dialog
-        title: "Switch"
-                height: main_window.height/4
-        property var page_4_book_name: "null"
-
-        ComboBox {
-            id: select_book_name_to_switch
-            currentIndex: 0
-            textRole: "name"
-            font.family: "Source Code Pro"
-            font.pixelSize: Qt.application.font.pixel
-//            flat: true
-            anchors.margins: 20
-
-            model: page_4_word_list_list_model
-            onCurrentIndexChanged: {
-            }
-        }
-
-
-        ListModel {
-            id: page_4_word_list_list_model
-            Component.onCompleted: {
-                var db_table_name_list = DB.load_db_table_as_word_list();
-                for( var i = 0; i < db_table_name_list.length; i++ )
-                {
-                    console.log( " component.oncompleted " + db_table_name_list[i] )
-                    if( db_table_name_list[i] === "para_info" || db_table_name_list[i] ==="extra_info" ||db_table_name_list[i]==="statistics_info")
-                    {
-                    }
-                    else
-                    {
-                        page_4_word_list_list_model.append(
-                                    {
-                                        "name": db_table_name_list[i],
-                                        "date": Qt.formatDateTime(new Date(), "yyyy-MM-dd hh:mm:ss.zzz ddd"),
-                                        "number" : "undefined"
-                                    })
-
-                    }
-                }
-            }
-        }
-
-        standardButtons: Dialog.Reset | Dialog.Ok |Dialog.Cancel
-        onAccepted: {
-            page_4_book_name = select_book_name_to_switch.currentText
-
-            console.log(DB.get_operate_db_table_name());
-            DB.set_operate_db_table_name( page_4_book_name )
-        }
-
-    }
-
-
-
-
     Rectangle {
         id: page_account_show_user_info_rec
         width: parent.width
@@ -103,6 +44,62 @@ Page {
             onClicked: {
 //                var file_path = file_dialog.open()
                 switch_operate_db_dialog.open()
+
+            }
+
+
+            Dialog {
+                id: switch_operate_db_dialog
+                title: "Switch"
+                        height: main_window.height/4
+                property var page_4_book_name: "null"
+
+                ComboBox {
+                    id: select_book_name_to_switch
+                    currentIndex: 0
+                    textRole: "name"
+                    font.family: "Source Code Pro"
+                    font.pixelSize: Qt.application.font.pixel
+        //            flat: true
+                    anchors.margins: 20
+
+                    model: page_4_word_list_list_model
+                    onCurrentIndexChanged: {
+                    }
+                }
+
+
+                ListModel {
+                    id: page_4_word_list_list_model
+                    Component.onCompleted: {
+                        var db_table_name_list = DB.load_db_table_as_word_list();
+                        for( var i = 0; i < db_table_name_list.length; i++ )
+                        {
+                            console.log( " component.oncompleted " + db_table_name_list[i] )
+                            if( db_table_name_list[i] === "para_info" || db_table_name_list[i] ==="extra_info" ||db_table_name_list[i]==="statistics_info")
+                            {
+                            }
+                            else
+                            {
+                                page_4_word_list_list_model.append(
+                                            {
+                                                "name": db_table_name_list[i],
+                                                "date": Qt.formatDateTime(new Date(), "yyyy-MM-dd hh:mm:ss.zzz ddd"),
+                                                "number" : "undefined"
+                                            })
+
+                            }
+                        }
+                    }
+                }
+
+                standardButtons: Dialog.Reset | Dialog.Ok |Dialog.Cancel
+                onAccepted: {
+                    page_4_book_name = select_book_name_to_switch.currentText
+
+                    console.log(DB.get_operate_db_table_name());
+                    DB.set_operate_db_table_name( page_4_book_name )
+                }
 
             }
         }
@@ -161,7 +158,14 @@ Page {
             height: parent.height/7
             anchors.top:  exit_proc_btn.bottom
             onClicked: {
-                DB.update_statistics_info()
+                var result = DB.get_all_info_from_statistics_table()
+
+                console.log("debug=======")
+                for( var i = 0; i < result.length; i++)
+                {
+                    console.log( result[i] )
+
+                }
             }
         }
 
